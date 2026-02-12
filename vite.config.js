@@ -9,4 +9,16 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
+  server: {
+    middlewares: [
+      {
+        handler(req, res, next) {
+          if (req.url !== '/' && !req.url.match(/\.[a-z]+$/i)) {
+            req.url = '/'
+          }
+          next()
+        }
+      }
+    ]
+  }
 })
